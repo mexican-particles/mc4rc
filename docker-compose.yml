@@ -1,0 +1,50 @@
+version: '3.7'
+
+volumes:
+    logs:
+        driver: local
+
+services:
+    mc4rc:
+        build: .
+        ports:
+            - 8123:8123
+            - 25565:25565
+        volumes:
+            - .:/var/lib/mc
+        networks:
+            - mc
+    csr:
+        build:
+            context: ./nginx
+            args:
+                - VALIDATOR_FILE_NAME=${VALIDATOR_FILE_NAME}
+        image: nginx
+        ports:
+            - 80:80
+        env_file: .env
+        environment:
+            - VALIDATOR_FILE_NAME=${VALIDATOR_FILE_NAME}
+            - VALIDATOR_PATH=${VALIDATOR_PATH}
+            - FQDN=${FQDN}
+        entrypoint: /bin/bash /var/www/csr.sh
+    nginx:
+        build:
+            context: ./nginx
+            args:
+                - VALIDATOR_FILE_NAME=${VALIDATOR_FILE_NAME}
+        image: nginx
+        ports:
+            - 443:443
+        env_file: .env
+        environment:
+            - VALIDATOR_FILE_NAME=${VALIDATOR_FILE_NAME}
+            - VALIDATOR_PATH=${VALIDATOR_PATH}
+            - FQDN=${FQDN}
+        entrypoint: /bin/bash /var/www/entrypoint.sh
+        networks:
+            - mc
+
+networks:
+    mc:
+        external: true
