@@ -47,7 +47,7 @@ openssl req -nodes -newkey rsa:2048 -sha256 -keyout private.pem -out csr.pem
 
 `csr` コンテナはもう不要なので `docker-compose stop` などで停止します（削除しても構いません）。
 
-最後に `docker create network mc` でネットワークを作成し、  
+最後に `docker network create mc` でネットワークを作成し、  
 `docker-compose up mc4rc`, `docker-compose up nginx` でマインクラフトとリバースプロキシを起動します。
 
 ## そのほか

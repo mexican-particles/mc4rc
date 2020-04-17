@@ -24,4 +24,4 @@ JAR_FILE="$(ls /var/lib/mc/data | grep spigot-)"
 cd /var/lib/mc/data
 
 ## TODO メモリの指定は外部から注入できるように
-java -Xms1G -Xmx1G -jar ${JAR_FILE} nogui
+java -Xms8G -Xmx16G -jar ${JAR_FILE} nogui

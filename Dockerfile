@@ -6,8 +6,6 @@ RUN apk add --no-cache tzdata && \
     echo ${TZ} > /etc/timezone && \
     apk del tzdata
 
-RUN apk add --no-cache bash openjdk11-jre wget git
+RUN apk add --no-cache bash openjdk11-jre wget git bash
 
 WORKDIR /var/lib/mc
-
-ENTRYPOINT ["./entrypoint.sh"]
