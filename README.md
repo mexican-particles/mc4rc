@@ -7,8 +7,13 @@
 - docker, docker-compose
 
 ### ディレクトリについて
+- bin
+  - 実行ファイルが保存されるディレクトリです。 
 - data
   - minecraft のデータが保存されるディレクトリです。
+- minecord
+  - このディレクトリに [mexican-particles/minecord](https://github.com/mexican-particles/minecord) プロジェクトが格納されることを期待しています。  
+    必須ではなく、また submodule にすると管理が煩瑣になるので、あえてここに記述するのみに留めています。
 - nginx
   - Dynmap を https でリバースプロキシするためのディレクトリです。
 

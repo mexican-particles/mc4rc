@@ -10,6 +10,7 @@ services:
         ports:
             - 8123:8123
             - 25565:25565
+            - 25575:25575
         volumes:
             - .:/var/lib/mc
         networks:
@@ -20,7 +21,6 @@ services:
             context: ./nginx
             args:
                 - VALIDATOR_FILE_NAME=${VALIDATOR_FILE_NAME}
-        image: nginx
         ports:
             - 80:80
         env_file: .env
@@ -34,7 +34,6 @@ services:
             context: ./nginx
             args:
                 - VALIDATOR_FILE_NAME=${VALIDATOR_FILE_NAME}
-        image: nginx
         ports:
             - 443:443
         env_file: .env
@@ -43,6 +42,15 @@ services:
             - VALIDATOR_PATH=${VALIDATOR_PATH}
             - FQDN=${FQDN}
         entrypoint: /bin/bash /var/www/entrypoint.sh
+        networks:
+            - mc
+    minecord:
+        build: ./minecord
+        ports:
+            - 25575:25575
+        volumes:
+            - ./minecord:/var/lib/minecord
+            - ./data/logs:/var/logs/minecraft
         networks:
             - mc
 
